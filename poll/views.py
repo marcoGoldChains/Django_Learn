@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.urls import reverse
 
+
 from .models import Question, Choice
 
 
@@ -31,9 +32,13 @@ def detail(request, question_id):
     return render(request, "poll/details.html", operadores) 
 
 def results(request, question_id):
-    response = "You're looking at the results of question %s."
     
-    return HttpResponse(response % question_id)
+    operadores = { 
+        "question" : Question.objects.get(pk=question_id),
+        "choices" : Choice.objects.filter(question= question_id)
+    }
+    
+    return render(request, "poll/results.html", operadores)
 
 def vote(request, question_id):
     question = Question.objects.get(pk=question_id)
