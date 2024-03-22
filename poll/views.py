@@ -1,13 +1,14 @@
+from typing import Any
+from django.db.models.query import QuerySet
 from django.shortcuts import render
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.urls import reverse
-
+from django.views import generic
 
 from .models import Question, Choice
 
 
 # Create your views here.
-
 def index(request):
     latest_quest_list = Question.objects.order_by("-pub_date")[:5]
     context = {"latest_quest_list": latest_quest_list}
