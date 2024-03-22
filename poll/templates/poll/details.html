@@ -1,0 +1,10 @@
+<h1>{{question.quest_text}}</h1>
+
+<br>
+{% for choice in choices %}
+
+        <h2 style="margin-left: 10px"><li>{{choice}}</li></h2>
+
+{% endfor %}
+
+<a href="/poll/">Go back</a>
