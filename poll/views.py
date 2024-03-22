@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import Http404
 
@@ -36,6 +36,7 @@ def results(request, question_id):
     return HttpResponse(response % question_id)
 
 def vote(request, question_id):
+    
     
     return HttpResponse("You're voting on question %s." % question_id)
 
