@@ -8,9 +8,9 @@ from .models import Question
 
 # Create your tests here.
 
-def create_question(question_text, days):
+def create_question(quest_text, days):
     time = timezone.now() + datetime.timedelta(days=days)
-    return Question.objects.create(question_text=question_text, pub_date=time)
+    return Question.objects.create(quest_text=quest_text, pub_date=time)
 
 class  QuestionIndexViewTests(TestCase):
     
@@ -24,7 +24,7 @@ class  QuestionIndexViewTests(TestCase):
         )
         
     def test_past_question(self):
-        question = create_question(question_text="Past question.", days=-30)
+        question = create_question(quest_text="Past question.", days=-30)
         response = self.client.get(reverse("poll:index"))
         self.assertQuerySetEqual(
             response.context["latest_quest_list"], 
@@ -32,7 +32,7 @@ class  QuestionIndexViewTests(TestCase):
         )
     
     def test_future_question(self):
-        create_question(question_text="Future question.", days=30)
+        create_question(quest_text="Future question.", days=30)
         response = self.client.get(reverse("poll:index"))
         self.assertContains(response, "No polls are available.")
         self.assertQuerySetEqual(
@@ -42,8 +42,8 @@ class  QuestionIndexViewTests(TestCase):
         
     def test_future_question_and_past_question(self):
         
-        question = create_question(question_text="Past question. ", days=-30)
-        create_question(question_text="Future question.", days=30)
+        question = create_question(quest_text="Past question. ", days=-30)
+        create_question(quest_text="Future question.", days=30)
         response = self.client.get(reverse("poll:index"))
         self.assertQuerySetEqual(
             response.context["latest_quest_list"],
@@ -52,14 +52,14 @@ class  QuestionIndexViewTests(TestCase):
         
     def test_two_past_questions(self):
         
-        question1 = create_question(question_text="Past question 1.", days=-30)
-        question2 = create_question(question_text="Past question 2.", days=-5)
+        question1 = create_question(quest_text="Past question 1.", days=-30)
+        question2 = create_question(quest_text="Past question 2.", days=-5)
         response = self.client.get(reverse("poll:index"))
         self.assertQuerySetEqual(
             response.context["latest_quest_list"], 
             [question2, question1]
         )
-"""
+
 class QuestionModelTests(TestCase):
     def test_was_published_recently_with_future_question(self):
         time = timezone.now() + datetime.timedelta(days=30)
@@ -79,4 +79,4 @@ class QuestionModelTests(TestCase):
 
         self.assertIs(recent_question.was_published_recently(), True)
 
-"""
+
