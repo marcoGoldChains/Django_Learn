@@ -1,20 +1,20 @@
-from typing import Any
-from django.db.models.query import QuerySet
 from django.shortcuts import render
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
+from django.utils import timezone
 
 from .models import Question, Choice
 
 
 # Create your views here.
-def index(request):
-    latest_quest_list = Question.objects.order_by("-pub_date")[:5]
-    context = {"latest_quest_list": latest_quest_list}
-    
-    return render(request, "poll/index.html", context)
+class IndexView(generic.ListView):
+    template_name = "poll/index.html"
+    context_object_name = "latest_quest_list"
 
+    def get_queryset(self):
+        
+        return Question.objects.filter(pub_date__lte=timezone.now()).order_by("-pub_date")[:5]
 def prueba(request):
     
     return HttpResponse("esto es la mama de la mama")
