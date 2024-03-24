@@ -1,0 +1,36 @@
+li a{
+    color: rgb(70, 102, 60);
+    display: inline-block;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 10px;
+    
+    
+
+}
+li{
+    background-color: bisque;
+    width: max-content;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    opacity: 30%;
+    
+
+
+}
+li a:hover {
+    background-color: rgb(98, 129, 197);
+    color: rgb(194, 207, 170);
+    font-size: large;
+    transition-duration: 0.3s;
+}
+
+body {
+    
+    background-image: url("images/gato.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+}
